@@ -2,6 +2,33 @@
 
 All notable changes to the Weekly Meal Prep Generator will be documented in this file.
 
+## [1.2.0] - 2026-05-21
+
+### Added
+
+* **4 New Delish-Inspired Recipes:** 
+  * Chicken Club Egg White Wraps
+  * Italian Grinder Chicken Salad Wraps
+  * Easy Peanut Chicken Protein Bowls
+  * BBQ Chicken Power Bowls
+* **3 New Burrito Recipes:** 
+  * Chicken Bacon Ranch Burritos
+  * Buffalo Chicken Burritos
+  * Steak Fajita Burritos
+* **Custom Condiment:** Added a custom Jalapeno Garlic Aioli (jalapeno, garlic, mayonnaise, honey, salt) to the database.
+
+### Changed
+* **Global Rice Update:** Completely removed all instances of "brown rice" across the entire database. Replaced exclusively with "white rice" or "jasmine rice".
+* **Macro Adjustments:** Updated the nutritional macro profiles (Calories and Fat) for meals utilizing the new Jalapeno Garlic Aioli to account for the mayonnaise and honey.
+
+### Updated
+* **Recipe Enhancements:** Integrated the new Jalapeno Garlic Aioli blending instructions and ingredient lists into the following existing recipes to complement their flavor profiles:
+  * Fajita Steak Bowls
+  * Southwest Ground Beef Skillet
+  * Slow Cooker Salsa Chicken
+  * Steak Fajita Burritos
+
+
 ## [1.1.0] - 2026-05-21
 
 ### Added
