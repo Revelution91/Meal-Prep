@@ -1,7 +1,7 @@
 import streamlit as st
 import random
 
-# --- RECIPE DATABASE (With Macros, Regular Bacon, and Beef Swaps) ---
+# --- RECIPE DATABASE (15 Recipes, Macros, No Beans/Asparagus/Sweet Potatoes) ---
 RECIPES = [
     {
         "name": "🍗 Healthy Chicken Bacon Ranch Bowls",
@@ -25,11 +25,11 @@ RECIPES = [
         )
     },
     {
-        "name": "🔥 Buffalo Chicken & Sweet Potato Prep",
+        "name": "🔥 Buffalo Chicken & Roasted Potato Prep",
         "macros": {"Calories": 540, "Protein": "48g", "Carbs": "42g", "Fat": "18g"},
         "ingredients": [
             "2.5 lbs Boneless Skinless Chicken Breast",
-            "3 large Sweet Potatoes, cubed",
+            "3 large Russet or Gold Potatoes, cubed",
             "2 Bell Peppers, roughly chopped",
             "1 Red Onion, roughly chopped",
             "1 cup Frank's RedHot Buffalo Sauce",
@@ -38,7 +38,7 @@ RECIPES = [
         ],
         "instructions": (
             "1. Preheat oven to 425°F (220°C) or use your Air Fryer at 400°F (200°C).\n"
-            "2. Toss sweet potatoes, bell peppers, and red onion in olive oil, salt, and pepper. Roast or air fry for 20-25 mins until crispy.\n"
+            "2. Toss cubed potatoes, bell peppers, and red onion in olive oil, salt, and pepper. Roast or air fry for 20-25 mins until crispy.\n"
             "3. Cook chicken breasts in a skillet or bake until internal temp reaches 165°F.\n"
             "4. Shred or cube the cooked chicken.\n"
             "5. Whisk melted butter and buffalo sauce together. Toss the chicken in the sauce.\n"
@@ -150,6 +150,175 @@ RECIPES = [
             "3. Place chicken breasts in a baking dish. Spread the cream cheese mixture evenly over each breast.\n"
             "4. Bake at 375°F (190°C) for 25-30 minutes until chicken reaches 165°F.\n"
             "5. Slice the chicken and serve alongside the air-fried potatoes."
+        )
+    },
+    {
+        "name": "🥙 Cava-Inspired Mediterranean Bowls",
+        "macros": {"Calories": 580, "Protein": "42g", "Carbs": "45g", "Fat": "24g"},
+        "ingredients": [
+            "2.5 lbs Boneless Skinless Chicken Thighs",
+            "3 tbsp Harissa paste",
+            "2.5 cups Brown Rice (dry measure)",
+            "1 large English Cucumber, diced",
+            "2 cups Cherry Tomatoes, halved",
+            "1 Red Onion, finely diced",
+            "1/2 cup Feta cheese, crumbled",
+            "1/2 cup Tzatziki sauce"
+        ],
+        "instructions": (
+            "1. Marinate chicken thighs in harissa paste, a splash of olive oil, salt, and pepper for 30 mins.\n"
+            "2. Grill or bake chicken at 400°F (200°C) for 20-25 minutes. Let rest, then chop.\n"
+            "3. Make the salad topping: Mix cucumber, tomatoes, and red onion with a squeeze of lemon juice.\n"
+            "4. Cook the rice and divide among 5 containers.\n"
+            "5. Add rice, harissa chicken, and the cucumber-tomato salad to containers.\n"
+            "6. Keep tzatziki separate. Sprinkle bowls with feta cheese."
+        )
+    },
+    {
+        "name": "🐔 BBQ Chicken & Roasted Carrots & Potatoes",
+        "macros": {"Calories": 520, "Protein": "50g", "Carbs": "55g", "Fat": "10g"},
+        "ingredients": [
+            "2.5 lbs Boneless Skinless Chicken Breast",
+            "1 cup Sugar-Free BBQ Sauce",
+            "2 lbs Baby Gold Potatoes, halved",
+            "1 lb Baby Carrots",
+            "1 tbsp Smoked paprika, garlic powder, salt, pepper",
+            "2 tbsp Olive oil"
+        ],
+        "instructions": (
+            "1. Toss potatoes and carrots in olive oil, salt, and pepper. Air fry in batches for 15-18 mins, OR roast at 400°F (200°C) for 30 mins.\n"
+            "2. Season chicken breasts with smoked paprika and garlic powder.\n"
+            "3. Cook chicken in a skillet or bake until internal temp hits 165°F.\n"
+            "4. Shred or chop the cooked chicken and toss it heavily in the BBQ sauce.\n"
+            "5. Assemble containers: BBQ chicken alongside the roasted/air-fried potatoes and carrots."
+        )
+    },
+    {
+        "name": "🥩 Classic Beef & Broccoli",
+        "macros": {"Calories": 590, "Protein": "48g", "Carbs": "52g", "Fat": "18g"},
+        "ingredients": [
+            "2.5 lbs Flank Steak, sliced very thin against the grain",
+            "6 cups Broccoli florets",
+            "2.5 cups Jasmine Rice (dry measure)",
+            "1/2 cup Low-sodium Soy Sauce",
+            "2 tbsp Sesame oil",
+            "2 tbsp Cornstarch",
+            "3 cloves Garlic, minced",
+            "1 tbsp Ginger, minced"
+        ],
+        "instructions": (
+            "1. Cook the rice and divide into 5 containers.\n"
+            "2. Toss the thinly sliced steak in cornstarch and 1 tbsp soy sauce. Let sit 10 mins.\n"
+            "3. Whisk remaining soy sauce, sesame oil, garlic, and ginger to make the sauce.\n"
+            "4. Heat a wok or large skillet over high heat. Sear the steak in batches until browned. Remove and set aside.\n"
+            "5. In the same pan, stir-fry the broccoli with a splash of water until tender-crisp.\n"
+            "6. Return steak to the pan, pour the sauce over everything, and toss for 1-2 mins until thickened. Serve over rice."
+        )
+    },
+    {
+        "name": "🍅 Creamy Tomato & Spinach Chicken Pasta",
+        "macros": {"Calories": 560, "Protein": "55g", "Carbs": "50g", "Fat": "14g"},
+        "ingredients": [
+            "2.5 lbs Boneless Skinless Chicken Breast, cubed",
+            "16 oz Protein Pasta (like Banza or Barilla Protein+)",
+            "3 cups Fresh Baby Spinach",
+            "1 jar (24 oz) Marinara Sauce",
+            "1/2 cup Plain Greek Yogurt",
+            "2 tbsp Olive oil",
+            "Garlic powder, Italian seasoning, salt, pepper"
+        ],
+        "instructions": (
+            "1. Boil the protein pasta in salted water according to package directions. Drain and divide into 5 containers.\n"
+            "2. Heat olive oil in a large skillet. Cook the cubed chicken until browned and cooked through.\n"
+            "3. Pour in the marinara sauce and season with Italian herbs. Simmer for 5 mins.\n"
+            "4. Stir in the fresh spinach and let it wilt (about 2 mins).\n"
+            "5. Turn off the heat. Stir in the Greek yogurt until the sauce becomes creamy (do not boil).\n"
+            "6. Pour the creamy tomato spinach chicken over the pasta in each container."
+        )
+    },
+    {
+        "name": "🥩 Steak Salad Bowls with Carrots & Cucumber",
+        "macros": {"Calories": 510, "Protein": "45g", "Carbs": "15g", "Fat": "28g"},
+        "ingredients": [
+            "2.5 lbs Sirloin Steak",
+            "1 large English Cucumber, sliced",
+            "1 cup Shredded Carrots",
+            "1 large bag Mixed Greens or Spinach",
+            "1 cup Feta or Blue cheese, crumbled",
+            "1/2 cup Balsamic Vinaigrette dressing",
+            "Salt, pepper, garlic powder"
+        ],
+        "instructions": (
+            "1. Season the sirloin steak heavily with salt, pepper, and garlic powder.\n"
+            "2. Grill or pan-sear the steak (about 4-5 mins per side for medium-rare). Let rest 10 mins.\n"
+            "3. Slice the steak thinly against the grain.\n"
+            "4. In 5 large containers, build the salad base: Mixed greens, cucumber slices, and shredded carrots.\n"
+            "5. Top with the sliced steak and crumbled cheese.\n"
+            "6. Keep the balsamic vinaigrette in separate small cups until you're ready to eat."
+        )
+    },
+    {
+        "name": "🐔 Slow Cooker Salsa Chicken & Cauliflower Rice",
+        "macros": {"Calories": 420, "Protein": "48g", "Carbs": "35g", "Fat": "8g"},
+        "ingredients": [
+            "2.5 lbs Boneless Skinless Chicken Breast",
+            "1 jar (16 oz) Chunky Tomato Salsa",
+            "2 Bell Peppers, sliced",
+            "1 Yellow Onion, sliced",
+            "2 bags (12 oz each) Frozen Cauliflower Rice",
+            "1 cup Sweet Corn (frozen or canned)",
+            "1 tbsp Cumin and Chili powder"
+        ],
+        "instructions": (
+            "1. In a slow cooker, combine the chicken breasts, salsa, cumin, and chili powder. Cook on low for 4 hours.\n"
+            "2. Shred the chicken directly in the salsa juices.\n"
+            "3. In a large skillet, sauté the sliced bell peppers and onions until soft.\n"
+            "4. Microwave or sauté the cauliflower rice according to package directions. Mix in the sweet corn.\n"
+            "5. Divide the cauliflower rice and corn into 5 containers.\n"
+            "6. Top with the sautéed peppers, onions, and shredded salsa chicken."
+        )
+    },
+    {
+        "name": "🥩 Garlic Butter Steak Bites & Zucchini",
+        "macros": {"Calories": 610, "Protein": "45g", "Carbs": "45g", "Fat": "25g"},
+        "ingredients": [
+            "2.5 lbs Sirloin or Strip Steak, cut into 1-inch cubes",
+            "3 medium Zucchini, sliced into half-moons",
+            "2.5 cups Rice or Orzo (dry measure)",
+            "3 tbsp Butter",
+            "4 cloves Garlic, minced",
+            "1 tbsp Fresh parsley, chopped",
+            "Salt, pepper, and olive oil"
+        ],
+        "instructions": (
+            "1. Cook the rice/orzo and divide into 5 containers.\n"
+            "2. Season the steak cubes generously with salt and pepper.\n"
+            "3. Heat a skillet over high heat. Sear steak bites in batches for 1-2 mins per side to get a crust. Remove from pan.\n"
+            "4. In the same pan, add a drizzle of olive oil and sauté the zucchini until tender (about 4-5 mins). Remove from pan.\n"
+            "5. Lower heat to medium. Add butter and minced garlic to the pan. Cook 1 min until fragrant.\n"
+            "6. Return the steak and zucchini to the pan for 30 seconds just to coat in the garlic butter. Divide over the rice."
+        )
+    },
+    {
+        "name": "🐔 Lemon Herb Chicken & Roasted Veggies",
+        "macros": {"Calories": 490, "Protein": "48g", "Carbs": "40g", "Fat": "15g"},
+        "ingredients": [
+            "2.5 lbs Boneless Skinless Chicken Breast",
+            "2 medium Zucchini, chopped",
+            "2 Bell Peppers, chopped",
+            "1 Red Onion, cut into chunks",
+            "2.5 cups Rice or Couscous (dry measure)",
+            "Juice of 2 Lemons",
+            "2 tbsp Olive oil",
+            "1 tbsp Dried Oregano, salt, pepper"
+        ],
+        "instructions": (
+            "1. Cook the carb base (rice or couscous) and divide into 5 containers.\n"
+            "2. Preheat oven to 400°F (200°C).\n"
+            "3. On a large sheet pan, spread out the chicken breasts, zucchini, bell peppers, and red onion.\n"
+            "4. Whisk olive oil, lemon juice, oregano, salt, and pepper. Pour over the chicken and vegetables, tossing to coat evenly.\n"
+            "5. Roast for 20-25 minutes until chicken is cooked through (165°F) and veggies are tender.\n"
+            "6. Slice the chicken and divide everything evenly into the 5 meal prep containers."
         )
     }
 ]
