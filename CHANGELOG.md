@@ -16,9 +16,11 @@ All notable changes to the Weekly Meal Prep Generator will be documented in this
   * Buffalo Chicken Burritos
   * Steak Fajita Burritos
 * **Custom Condiment:** Added a custom Jalapeno Garlic Aioli (jalapeno, garlic, mayonnaise, honey, salt) to the database.
+* **Custom Condiment:** Added an Authentic Mac Sauce recipe based on exact measurements (mayonnaise, sweet pickle relish, yellow mustard, white vinegar, paprika, garlic powder, onion powder).
 
 ### Changed
 * **Global Rice Update:** Completely removed all instances of "brown rice" across the entire database. Replaced exclusively with "white rice" or "jasmine rice".
+* **Recipe Swap:** Replaced "High-Protein Big Mac Casserole" with Oh Snap Macros-style "Big Mac Bowls" using the authentic Mac Sauce recipe.
 * **Macro Adjustments:** Updated the nutritional macro profiles (Calories and Fat) for meals utilizing the new Jalapeno Garlic Aioli to account for the mayonnaise and honey.
 
 ### Updated

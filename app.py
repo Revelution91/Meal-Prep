@@ -69,27 +69,30 @@ RECIPES = [
         )
     },
     {
-        "name": "🍔 High-Protein Big Mac Casserole",
-        "macros": {"Calories": 580, "Protein": "46g", "Carbs": "35g", "Fat": "28g"},
+        "name": "🍔 Big Mac Bowls",
+        "macros": {"Calories": 680, "Protein": "50g", "Carbs": "12g", "Fat": "48g"},
         "ingredients": [
             "2.5 lbs Lean Ground Beef (93/7)",
-            "1 large White Onion, diced",
-            "1 bag (20 oz) Frozen Shredded Hashbrowns (thawed)",
+            "1 large head Iceberg Lettuce, shredded",
+            "1 large White Onion, finely diced",
+            "1 cup Dill Pickles, diced",
             "1.5 cups Reduced-fat Cheddar Cheese, shredded",
-            "1 cup Plain Greek Yogurt",
-            "3 tbsp Sugar-free Ketchup",
-            "2 tbsp Dill Pickle Relish",
-            "1 tsp Yellow Mustard",
-            "Shredded Iceberg Lettuce and extra diced pickles (for topping)"
+            "Salt, pepper, and garlic powder (for the beef)",
+            "-- AUTHENTIC MAC SAUCE --",
+            "2/3 Cup Mayonnaise",
+            "1/3 Cup Sweet Pickle Relish",
+            "2 tsp Yellow Mustard",
+            "3/4 tsp White Vinegar",
+            "1/2 tsp Paprika",
+            "1/4 tsp Garlic powder",
+            "1/4 tsp Onion powder"
         ],
         "instructions": (
-            "1. Preheat oven to 400°F (200°C). Spray a 9x13 baking dish.\n"
-            "2. Press thawed hashbrowns into the bottom of the dish. Bake for 20 mins.\n"
-            "3. Brown the ground beef and diced onion in a skillet. Drain excess fat. Season with salt/pepper.\n"
-            "4. Layer beef/onion mixture over the hashbrown crust. Top with shredded cheddar.\n"
-            "5. Bake for another 10-15 mins until cheese melts.\n"
-            "6. Whisk Greek yogurt, ketchup, relish, and mustard to make the Mac Sauce.\n"
-            "7. Divide into 5 portions. Top with fresh lettuce, pickles, and Mac Sauce after reheating."
+            "1. In a large skillet over medium-high heat, brown the ground beef. Drain any excess fat and season generously with salt, pepper, and garlic powder.\n"
+            "2. Divide the cooked ground beef evenly into 5 containers. Top the warm beef with shredded cheddar cheese so it slightly melts.\n"
+            "3. Make the Mac Sauce: In a small bowl, whisk together the mayonnaise, sweet pickle relish, yellow mustard, white vinegar, paprika, garlic powder, and onion powder. Divide into 5 small condiment cups.\n"
+            "4. Store the shredded lettuce, diced white onion, and diced pickles in separate baggies or compartmentalized containers to keep them crisp in the fridge.\n"
+            "5. To serve, reheat the beef and cheese, then top with the fresh cold veggies and drizzle heavily with the Mac Sauce."
         )
     },
     {
