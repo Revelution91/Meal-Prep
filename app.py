@@ -500,65 +500,133 @@ RECIPES = [
     }
 ]
 
-# --- STREAMLIT UI SETUP ---
+# --- STREAMLIT UI SETUP (Combined Layout) ---
 st.set_page_config(page_title="Weekly Meal Prep", page_icon="🍱", layout="centered")
-
 st.title("🍽️ High-Protein Meal Prep Generator")
 
-# --- SIDEBAR: BACKUP / MANUAL SELECTOR ---
-st.sidebar.header("📁 Browse All Recipes")
-st.sidebar.write("If you closed the app or want to pull up a specific meal manually, find it here:")
+# Initialize session state variables if they don't exist
+if 'favorites' not in st.session_state:
+    st.session_state['favorites'] = []
+if 'random_recipe' not in st.session_state:
+    st.session_state['random_recipe'] = None
+if 'manual_recipe' not in st.session_state:
+    st.session_state['manual_recipe'] = None
+if 'fav_recipe' not in st.session_state:
+    st.session_state['fav_recipe'] = None
 
-# Create a list of names for the dropdown list
-recipe_names = [r["name"] for r in RECIPES]
-selected_recipe_name = st.sidebar.selectbox("Choose a recipe directly:", ["-- Select to view manually --"] + recipe_names)
-
-# --- MAIN PAGE BUTTON ---
-st.write("Or let the app roll the dice for you:")
-if st.button("🎲 Choose My Meal Prep", type="primary", use_container_width=True):
-    # Select random, save to session state, reset the sidebar selector
-    st.session_state['current_recipe'] = random.choice(RECIPES)
-    if 'manual_selection' in st.session_state:
-        del st.session_state['manual_selection']
-
-# Determine which recipe to display based on user actions
-display_recipe = None
-
-if selected_recipe_name != "-- Select to view manually --":
-    # User picked something from the sidebar menu
-    display_recipe = next(r for r in RECIPES if r["name"] == selected_recipe_name)
-elif 'current_recipe' in st.session_state:
-    # User clicked the random button
-    display_recipe = st.session_state['current_recipe']
-
-# --- DISPLAY LOGIC ---
-if display_recipe:
+# Helper function to render a recipe to keep the code clean and reusable
+def render_recipe(recipe, tab_key):
     st.divider()
-    st.header(f"🏆 {display_recipe['name']}")
+    col_title, col_btn = st.columns([3, 1])
     
-    # Nutritional Information Display Boxes
-    st.subheader("📊 Nutritional Info (Per Serving)")
+    with col_title:
+        st.header(f"🏆 {recipe['name']}")
+        
+    with col_btn:
+        # Check if the recipe is already in favorites by comparing names
+        is_saved = any(r['name'] == recipe['name'] for r in st.session_state['favorites'])
+        
+        if not is_saved:
+            # Use tab_key to ensure unique button keys across tabs
+            if st.button("❤️ Save Recipe", key=f"save_{tab_key}_{recipe['name']}"):
+                st.session_state['favorites'].append(recipe)
+                st.rerun()
+        else:
+            st.button("✅ Saved", disabled=True, key=f"saved_{tab_key}_{recipe['name']}")
+
+    # Macros Display
     m_col1, m_col2, m_col3, m_col4 = st.columns(4)
-    with m_col1:
-        st.metric(label="Calories", value=display_recipe["macros"]["Calories"])
-    with m_col2:
-        st.metric(label="Protein", value=display_recipe["macros"]["Protein"])
-    with m_col3:
-        st.metric(label="Carbs", value=display_recipe["macros"]["Carbs"])
-    with m_col4:
-        st.metric(label="Fat", value=display_recipe["macros"]["Fat"])
+    m_col1.metric("Calories", recipe["macros"]["Calories"])
+    m_col2.metric("Protein", recipe["macros"]["Protein"])
+    m_col3.metric("Carbs", recipe["macros"]["Carbs"])
+    m_col4.metric("Fat", recipe["macros"]["Fat"])
         
     st.divider()
     
+    # Ingredients and Instructions
     col1, col2 = st.columns([1, 1.4])
-    
     with col1:
         st.subheader("🛒 Ingredients")
-        st.caption("Yields 5 servings")
-        for item in display_recipe["ingredients"]:
+        for item in recipe["ingredients"]: 
             st.markdown(f"- {item}")
-            
     with col2:
         st.subheader("🧑‍🍳 Instructions")
-        formatted_instructions = display_recipe["instructions"].replace("\n", "\n\n")
-        st.markdown(formatted_instructions)
+        st.markdown(recipe["instructions"].replace("\n", "\n\n"))
+
+# --- TABS LAYOUT ---
+tab1, tab2, tab3 = st.tabs(["🎲 Randomizer", "📖 Recipe Book", "⭐ Favorites"])
+
+# TAB 1: RANDOMIZER
+with tab1:
+    st.write("Can't decide? Let the app roll the dice for you:")
+    if st.button("🎲 Choose My Meal Prep", type="primary", use_container_width=True):
+        st.session_state['random_recipe'] = random.choice(RECIPES)
+        
+    # Show the randomly selected recipe if one exists
+    if st.session_state['random_recipe']:
+        render_recipe(st.session_state['random_recipe'], "tab1")
+
+# TAB 2: RECIPE BOOK (Card Grid)
+with tab2:
+    # If a recipe is selected, show ONLY the recipe and a back button
+    if st.session_state['manual_recipe']:
+        if st.button("⬅️ Back to Recipe Book", key="back_tab2", use_container_width=True):
+            st.session_state['manual_recipe'] = None
+            st.rerun()
+            
+        render_recipe(st.session_state['manual_recipe'], "tab2")
+        
+    # Otherwise, show the grid
+    else:
+        st.write("Browse all available recipes below:")
+        
+        # Generate the grid dynamically (3 columns per row)
+        for i in range(0, len(RECIPES), 3):
+            cols = st.columns(3)
+            for j in range(3):
+                if i + j < len(RECIPES):
+                    recipe = RECIPES[i + j]
+                    with cols[j]:
+                        st.markdown(f"**{recipe['name']}**")
+                        st.caption(f"{recipe['macros']['Calories']} Cal | {recipe['macros']['Protein']} Pro")
+                        if st.button("View", key=f"view_tab2_{recipe['name']}", use_container_width=True):
+                            st.session_state['manual_recipe'] = recipe
+                            st.rerun() # Instantly reload to hide the grid
+
+# TAB 3: FAVORITES
+with tab3:
+    # If a favorite is selected, show ONLY the recipe and a back button
+    if st.session_state['fav_recipe']:
+        if st.button("⬅️ Back to Favorites", key="back_tab3", use_container_width=True):
+            st.session_state['fav_recipe'] = None
+            st.rerun()
+            
+        render_recipe(st.session_state['fav_recipe'], "tab3")
+        
+    # Otherwise, show the favorites grid
+    else:
+        if not st.session_state['favorites']:
+            st.info("You haven't saved any recipes yet! Click '❤️ Save Recipe' on any meal to add it here.")
+        else:
+            st.write("Your saved meals:")
+            
+            # Display favorites in the same grid style
+            favs = st.session_state['favorites']
+            for i in range(0, len(favs), 3):
+                cols = st.columns(3)
+                for j in range(3):
+                    if i + j < len(favs):
+                        recipe = favs[i + j]
+                        with cols[j]:
+                            st.markdown(f"**{recipe['name']}**")
+                            st.caption(f"{recipe['macros']['Calories']} Cal | {recipe['macros']['Protein']} Pro")
+                            
+                            # Stacked buttons for viewing and removing favorites
+                            if st.button("View", key=f"view_tab3_{recipe['name']}", use_container_width=True):
+                                st.session_state['fav_recipe'] = recipe
+                                st.rerun() # Instantly reload to hide the grid
+                            
+                            if st.button("Remove", key=f"remove_tab3_{recipe['name']}", use_container_width=True):
+                                # Filter out the removed recipe
+                                st.session_state['favorites'] = [r for r in favs if r['name'] != recipe['name']]
+                                st.rerun()

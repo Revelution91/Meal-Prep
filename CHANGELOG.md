@@ -2,6 +2,18 @@
 
 All notable changes to the Weekly Meal Prep Generator will be documented in this file.
 
+## [1.3.0] - 2026-05-21
+
+### Added
+* **Tabbed Interface:** Introduced a clean main-page navigation system using tabs to separate the randomizer, complete recipe collection, and personal favorites.
+* **Card Grid Layout:** Implemented a modern, 3-column responsive card layout to display recipes visually with their title and key macros at a glance.
+* **Favorites System:** Added a session state-driven "Save Recipe" button to bookmark meals dynamically during use.
+* **Mobile View Optimization:** Programmed the grid interface to completely hide when a specific recipe is opened, adding a dedicated `⬅️ Back` navigation button to remove vertical scrolling friction on phones.
+
+### Changed
+* **UI Architecture Overhaul:** Fully decommissioned the legacy sidebar selection scheme in favor of the new in-line tabbed layout.
+
+
 ## [1.2.0] - 2026-05-21
 
 ### Added
