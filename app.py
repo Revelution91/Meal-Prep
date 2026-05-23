@@ -72,26 +72,65 @@ def set_view_state(state_key, value):
 
 # --- 5. HELPERS ---
 def scale_ingredient(ingredient_str, target_servings, base_servings=5):
-    """Scales the first number or fraction found in an ingredient string."""
-    # This regex matches whole numbers (10), decimals (2.5), and fractions (1/2)
-    pattern = r'^([0-9]*\.?[0-9]+)(?:/([0-9]+))?'
+    """Scales numbers and smartly converts units (including pinches) for smaller servings."""
     
+    # 1. Define what makes an ingredient "wet"
+    wet_keywords = ["oil", "sauce", "juice", "dressing", "honey", "water", "broth", "cream", "milk", "vinegar", "paste"]
+    is_wet = any(word in ingredient_str.lower() for word in wet_keywords)
+
+    # 2. Regex now looks for cup, lb, tbsp, and tsp
+    pattern = r'^([0-9]*\.?[0-9]+)(?:/([0-9]+))?\s*(cup|cups|lb|lbs|tbsp|tsp)?'
+
     def replacer(match):
         numerator = float(match.group(1))
-        # If there is a denominator (group 2), use it. Otherwise, divide by 1.
         denominator = float(match.group(2)) if match.group(2) else 1.0
-        
-        # Calculate the actual numerical value of the fraction/decimal
+        unit = match.group(3)
+
+        # Calculate base scaled value
         val = numerator / denominator
-        
-        # Scale it based on the servings slider
         new_val = (val / base_servings) * target_servings
-        
-        # Round to 2 decimal places to handle repeating fractions cleanly
-        # The :g formatting automatically removes any trailing zeros (e.g., 0.50 becomes 0.5)
+
+        # 3. UNIT CONVERSION LOGIC
+        if unit:
+            unit = unit.lower()
+            
+            # --- CUP CONVERSIONS (Triggers if less than 1/4 cup) ---
+            if "cup" in unit and new_val < 0.25:
+                if is_wet:
+                    oz_val = new_val * 8
+                    return f"{round(oz_val, 1):g} oz"
+                else:
+                    tbsp_val = new_val * 16
+                    if tbsp_val < 1:
+                        tsp_val = tbsp_val * 3
+                        if tsp_val <= 0.125:  # 1/8 tsp or less
+                            return "A pinch/dash of"
+                        return f"{round(tsp_val, 1):g} tsp"
+                    return f"{round(tbsp_val, 1):g} tbsp"
+
+            # --- TABLESPOON CONVERSIONS (Triggers if less than 1 tbsp) ---
+            elif "tbsp" in unit and new_val < 1:
+                tsp_val = new_val * 3
+                if tsp_val <= 0.125:  # 1/8 tsp or less
+                    return "A pinch/dash of"
+                return f"{round(tsp_val, 1):g} tsp"
+
+            # --- TEASPOON CONVERSIONS (Triggers if 1/8 tsp or less) ---
+            elif "tsp" in unit and new_val <= 0.125:
+                return "A pinch/dash of"
+
+            # --- POUND CONVERSIONS (Triggers if less than 0.5 lbs) ---
+            elif "lb" in unit and new_val < 0.5:
+                oz_val = new_val * 16
+                return f"{round(oz_val, 1):g} oz"
+            
+            # If no conversion was triggered, put the original unit back
+            return f"{round(new_val, 2):g} {unit}"
+
+        # If there was no unit found in the regex match, just return the number
         return f"{round(new_val, 2):g}"
-    
-    return re.sub(pattern, replacer, ingredient_str)
+
+    return re.sub(pattern, replacer, ingredient_str, flags=re.IGNORECASE)
 
 def render_recipe(recipe, tab_key):
     """Displays a recipe card with slider and action buttons."""
