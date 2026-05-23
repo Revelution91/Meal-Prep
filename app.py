@@ -72,12 +72,26 @@ def set_view_state(state_key, value):
 
 # --- 5. HELPERS ---
 def scale_ingredient(ingredient_str, target_servings, base_servings=5):
-    """Scales the first number found in an ingredient string."""
+    """Scales the first number or fraction found in an ingredient string."""
+    # This regex matches whole numbers (10), decimals (2.5), and fractions (1/2)
+    pattern = r'^([0-9]*\.?[0-9]+)(?:/([0-9]+))?'
+    
     def replacer(match):
-        val = float(match.group())
+        numerator = float(match.group(1))
+        # If there is a denominator (group 2), use it. Otherwise, divide by 1.
+        denominator = float(match.group(2)) if match.group(2) else 1.0
+        
+        # Calculate the actual numerical value of the fraction/decimal
+        val = numerator / denominator
+        
+        # Scale it based on the servings slider
         new_val = (val / base_servings) * target_servings
-        return f"{new_val:g}"
-    return re.sub(r'^[0-9]*\.?[0-9]+', replacer, ingredient_str)
+        
+        # Round to 2 decimal places to handle repeating fractions cleanly
+        # The :g formatting automatically removes any trailing zeros (e.g., 0.50 becomes 0.5)
+        return f"{round(new_val, 2):g}"
+    
+    return re.sub(pattern, replacer, ingredient_str)
 
 def render_recipe(recipe, tab_key):
     """Displays a recipe card with slider and action buttons."""
