@@ -2,6 +2,33 @@
 
 All notable changes to the Weekly Meal Prep Generator will be documented in this file.
 
+## [1.5.0] - 2026-05-22
+
+### Added
+* **Interactive Grocery Planner:** Introduced a dedicated "Planner" cart that aggregates saved recipes and dynamically scales ingredient amounts based on user-defined serving sizes.
+* **Persistent Checkboxes:** Added interactive checkboxes to the grocery list that save their checked/unchecked state directly to the browser, allowing users to use the app seamlessly at the grocery store.
+* **15 New Recipes:** Expanded the database to 37 recipes, removing previous dietary restrictions to include pork, seafood, tofu, sweet potatoes, and beans.
+* **Tagging & Filter System:** Implemented a backend metadata tagging system (`protein`, `carb`, `veggie`) to allow users to filter the Randomizer pool before rolling the dice.
+* **Dynamic Ingredient Scaling:** Built a Regex helper function that parses ingredient strings and scales the physical quantities mathematically based on a UI slider.
+
+### Changed
+* **Data Architecture Migration:** Separated the massive recipe dictionary from `app.py` into a standalone `recipes.py` file to clean up the main application logic and improve modularity.
+* **True Persistence Engine:** Replaced ephemeral Streamlit session states with `streamlit-local-storage` to save Favorites, Planners, and Checkbox states natively to the user's browser, preventing data loss on app refresh.
+* **100% Callback Architecture:** Completely removed `st.rerun()` calls across the entire application, replacing them with `on_click` and `on_change` callbacks to eliminate the "emergency brake" saving bug.
+* **Stateful Navigation Menu:** Decommissioned the stateless `st.tabs` component. Replaced it with a custom horizontal radio menu bound to session state to permanently fix the bug where the app would jump back to the first tab after a user action. 
+
+## [1.4.0] - 2026-05-21
+
+### Added
+* **Dynamic Portion Controller Engine:** Converted static text recipes into clean object databases, allowing an input slider to mathematically scale ingredient volumes and aggregate macronutrient counts instantly.
+* **Weekly Menu Scheduler Matrix:** Designed a modular calendar interface tracking "Lunch" and "Dinner" assignments across a 7-day layout, complete with multi-key collision safety layers.
+* **Cumulative Macro Analytics Tracker:** Programmed an analytical dashboard monitoring combined nutritional tallies (Calories, Protein, Carbs, Fats) across scheduled calendar matrices.
+* **Master Aggregated Shopping List Compiler:** Implemented a compiler algorithm that scans weekly calendar slots, identifies identical ingredient-unit nodes across disparate recipes, sums the scaled fractions together, and isolates "to-taste" pantry items into a single check-off dashboard.
+
+### Changed
+* **Database Architecture Migration:** Shifted standard text descriptions into quantitative list-tuple arrays `[amount, unit, designation]` to handle mathematical calculations seamlessly.
+
+
 ## [1.3.0] - 2026-05-21
 
 ### Added
