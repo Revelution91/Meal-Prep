@@ -72,13 +72,16 @@ def set_view_state(state_key, value):
 
 # --- 5. HELPERS ---
 def scale_ingredient(ingredient_str, target_servings, base_servings=5):
-    """Scales numbers and smartly converts units (including pinches) for smaller servings."""
+    """Scales numbers and smartly converts units (including pinches and dashes) for smaller servings."""
     
     # 1. Define what makes an ingredient "wet"
     wet_keywords = ["oil", "sauce", "juice", "dressing", "honey", "water", "broth", "cream", "milk", "vinegar", "paste"]
     is_wet = any(word in ingredient_str.lower() for word in wet_keywords)
+    
+    # 2. Define the culinary term for micro-measurements
+    micro_measure = "A dash of" if is_wet else "A pinch of"
 
-    # 2. Regex now looks for cup, lb, tbsp, and tsp
+    # 3. Regex now looks for cup, lb, tbsp, and tsp
     pattern = r'^([0-9]*\.?[0-9]+)(?:/([0-9]+))?\s*(cup|cups|lb|lbs|tbsp|tsp)?'
 
     def replacer(match):
@@ -90,7 +93,7 @@ def scale_ingredient(ingredient_str, target_servings, base_servings=5):
         val = numerator / denominator
         new_val = (val / base_servings) * target_servings
 
-        # 3. UNIT CONVERSION LOGIC
+        # 4. UNIT CONVERSION LOGIC
         if unit:
             unit = unit.lower()
             
@@ -104,7 +107,7 @@ def scale_ingredient(ingredient_str, target_servings, base_servings=5):
                     if tbsp_val < 1:
                         tsp_val = tbsp_val * 3
                         if tsp_val <= 0.125:  # 1/8 tsp or less
-                            return "A pinch/dash of"
+                            return micro_measure
                         return f"{round(tsp_val, 1):g} tsp"
                     return f"{round(tbsp_val, 1):g} tbsp"
 
@@ -112,12 +115,12 @@ def scale_ingredient(ingredient_str, target_servings, base_servings=5):
             elif "tbsp" in unit and new_val < 1:
                 tsp_val = new_val * 3
                 if tsp_val <= 0.125:  # 1/8 tsp or less
-                    return "A pinch/dash of"
+                    return micro_measure
                 return f"{round(tsp_val, 1):g} tsp"
 
             # --- TEASPOON CONVERSIONS (Triggers if 1/8 tsp or less) ---
             elif "tsp" in unit and new_val <= 0.125:
-                return "A pinch/dash of"
+                return micro_measure
 
             # --- POUND CONVERSIONS (Triggers if less than 0.5 lbs) ---
             elif "lb" in unit and new_val < 0.5:
