@@ -2,6 +2,13 @@
 
 All notable changes to the Weekly Meal Prep Generator will be documented in this file.
 
+## [1.4.1] - 2026-05-23
+
+### Changed
+* **Intelligent Fractional Scaling:** Upgraded the `scale_ingredient` regex engine to accurately parse and mathematically compute cooking fractions (e.g., "1/3 cup") instead of returning unreadable decimals.
+* **Smart Unit Conversion:** Implemented dynamic unit downscaling for small serving sizes (e.g., automatically converting `< 0.25` cups into tablespoons or teaspoons, and `< 0.5` lbs into ounces).
+* **Culinary Micro-Measurements:** Added a wet/dry ingredient keyword scanner. When a scaled measurement drops to `1/8 tsp` or below, the engine automatically replaces the numerical value with human-readable culinary terms ("A dash of" for liquids, "A pinch of" for dry ingredients).
+
 ## [1.4.0] - 2026-05-22
 
 ### Added
